@@ -1,0 +1,106 @@
+@import "../node_modules/materialize-css/sass/components/color";
+@import "../node_modules/materialize-css/sass/components/variables";
+@import "../node_modules/materialize-css/sass/components/global";
+
+$toolbar-height-desktop: 80px;
+$toolbar-height-tablet: 64px;
+$toolbar-height-phone: 56px;
+
+$header-height: 80vh;
+
+// 1. Colors
+// ==========================================================================
+
+$primary-color: color("deep-purple", "lighten-2") !default;
+$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color-dark: darken($primary-color, 15%) !default;
+
+$secondary-color: color("pink", "accent-2") !default;
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("light-blue", "darken-1") !default;
+
+$color-text-light: color("blue-grey", "lighten-5") !default;
+$color-text-dark: color("blue-grey", "darken-4") !default;
+$color-text-primary: color($primary-color, "base") !default;
+$color-text-accent: color($secondary-color, "base") !default;
+
+// Media Query Ranges
+$small-screen-up: 480px !default;
+$medium-screen-up: 840px !default;
+$large-screen-up: 1280px !default;
+$small-screen: 480px !default;
+$medium-screen: 840px !default;
+$large-screen: 1280px !default;
+
+
+
+@mixin responsive($attr, $phone, $tablet, $desktop) {
+    @media screen and (max-width: $small-screen) {
+        #{$attr}: $phone;
+    }
+    @media screen and (min-width: $small-screen-up) and (max-width: $medium-screen) {
+        #{$attr}: $tablet;
+    }
+    @media screen and (min-width: $medium-screen-up) {
+        #{$attr}: $desktop;
+    }
+}
+
+@mixin show-in-phone {
+    @media screen and (min-width: $small-screen-up) {
+        display: none !important;
+    }
+}
+@mixin hide-in-phone {
+    @media screen and (max-width: $small-screen) {
+        display: none !important;
+    }
+}
+@mixin show-in-tablet {
+    @media screen and (max-width: $small-screen) {
+        display: none !important;
+    }
+    @media screen and (min-width: $medium-screen-up) {
+        display: none !important;
+    }
+}
+@mixin hide-in-tablet {
+    @media screen and (min-width: $small-screen-up) and (max-width: $medium-screen) {
+        display: none !important;
+    }
+}
+@mixin show-in-desktop {
+    @media screen and (max-width: $medium-screen) {
+        display: none !important;
+    }
+}
+@mixin hide-in-desktop {
+    @media screen and (min-width: $medium-screen-up) {
+        display: none !important;
+    }
+}
+
+@mixin large-font {
+    font-size: 1.2rem;
+}
+
+@mixin medium-font {
+    font-size: 1rem;
+}
+
+@mixin small-font {
+    font-size: 0.8rem;
+}
+
+@mixin light-font {
+    font-weight: 300;
+}
+
+@mixin bold-font {
+    font-weight: 500;
+}
+
+@mixin black-font {
+    font-weight: 700;
+}

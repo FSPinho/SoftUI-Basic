@@ -94,27 +94,21 @@
 
   <!-- FOREGROUND -->
 
-  <div class="landing-foreground" [@foregroundState]="foregroundState" (click)="toggleSidenav()"> </div>
+  <div class="landing-foreground"> </div>
 
 
   <!-- SIDENAV -->
 
-  <div class="landing-sidenav" [@sidenavState]="sidenavState">
+  <div class="landing-sidenav">
     <div class="header">
-      <a class="hamburger waves-effect waves-light btn-flat hide-on-large-only" (click)="toggleSidenav()">
+      <a class="hamburger waves-effect waves-light btn-flat hide-on-large-only">
         <i class="material-icons">arrow_back</i>
       </a>
     </div>
 
     <div class="menu">
-      <a 
-        class="link waves-effect waves-light" 
-        *ngFor="let link of menuLinks" 
-        [href]="link[1]" 
-        [class.active]="activeLink==link[0]"
-        (click)="toggleSidenav()">
-          <i *ngIf="link[2]" class="material-icons">{{link[2]}}</i>
-          {{link[0]}}
+      <a class="link link-href link-text waves-effect waves-light"  href="">
+          <i class="material-icons"> </i>
         </a>
     </div>
   </div>

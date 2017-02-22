@@ -7,9 +7,10 @@ module.exports = function(grunt) {
             outputJsMap: './dist/<%= pkg.name %>.js.map', 
             outputJsFile: './dist/<%= pkg.name %>-src.js', 
             outputJsMinFile: './dist/<%= pkg.name %>.min.js', 
+            outputJsPluginsFile: './dist/plugins.js', 
             outputCssFile: './dist/<%= pkg.name %>-src.css', 
             outputCssMinFile: './dist/<%= pkg.name %>.min.css',
-            outputJsPluginsFile: './dist/plugins.js'
+            outputCssPluginsFile: './dist/plugins.css', 
         }, 
         concat: {
             options: {
@@ -19,6 +20,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
+                    'js/app/_landing-frame.js', 
                     'js/_<%= pkg.name %>.js', 
                 ],
                 dest: 'js/<%= pkg.name %>.js'
@@ -36,7 +38,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    '<%= dist.outputJsFile %>': 'js/_<%= pkg.name %>.js'
+                    '<%= dist.outputJsFile %>': 'js/<%= pkg.name %>.js'
                 }
             }
         }, 
@@ -47,6 +49,14 @@ module.exports = function(grunt) {
                 },
                 files: {  
                     '<%= dist.outputCssFile %>': './sass/<%= pkg.name %>.scss'
+                }
+            }, 
+            plugins: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {  
+                    '<%= dist.outputCssPluginsFile %>': './sass/materialize-theming.scss'
                 }
             }
         }, 
@@ -101,6 +111,15 @@ module.exports = function(grunt) {
                 }
             }
         }, 
+        copy: {
+            main: {
+                files: [
+                    // includes files within path
+                    {expand: true, cwd: 'node_modules/materialize-css/', src: ['fonts/**'], dest: '<%= dist.outputFolder %>'},
+                    {expand: true, src: ['img/**'], dest: '<%= dist.outputFolder %>'},
+                ],
+            },
+        },
         watch: {
             configFiles: {
                 files: [ 'Gruntfile.js' ],
@@ -109,15 +128,15 @@ module.exports = function(grunt) {
                 }
             }, 
             css: {
-                files: 'sass/**/.scss', 
-                tasks: ['sass', 'autoprefixer', 'htmlbuild']
+                files: 'sass/**/*.scss', 
+                tasks: ['sass:dist', 'autoprefixer', 'htmlbuild']
             }, 
             js: {
-                files: 'js/**/.js', 
+                files: 'js/**/*.js', 
                 tasks: ['concat:dist', 'babel', 'uglify', 'htmlbuild']
             }, 
             html: {
-                files: '**/*.html', 
+                files: ['index.html', 'templates/*.html'], 
                 tasks: ['concat:dist', 'babel', 'htmlbuild']
             }
         }
@@ -131,7 +150,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlbuild', 'watch']);
+    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlbuild', 'copy','watch']);
 
 };

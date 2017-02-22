@@ -1,4 +1,4 @@
-/*! softui-basic - v1.0.0 - 2017-02-22 */ 
+ 
  const landingFrame = function() {
 
     const _options = {
@@ -34,12 +34,4 @@
         initialize: _initialize
     };
 
-}();;$(() => {
-
-    landingFrame.initialize({
-        links: [
-            { text: 'HOME', href: '#', icon: 'home' }
-        ]
-    });
-
-})
+}();

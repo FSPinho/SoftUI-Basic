@@ -1,5 +1,9 @@
-let doAnyThing = (...args) => {
-    console.log(args);
-}
+$(() => {
 
-doAnyThing("SoftUI-Basic");
+    landingFrame.initialize({
+        links: [
+            { text: 'HOME', href: '#', icon: 'home' }
+        ]
+    });
+
+})
