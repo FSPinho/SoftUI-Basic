@@ -1,0 +1,122 @@
+<div class="landing-root">
+
+  <div class="top-reference" id="top-reference"></div>
+
+  <!-- PAGE CONTENT -->
+
+  <div class="landing-page-content" >
+
+    <div class="header-wrapper">
+      <ng-content select=".header"></ng-content>
+    </div>
+    
+    <div class="body-wrapper" id="body">
+      <ng-content select=".body"></ng-content>
+
+      <!-- BODY ANIMATED COLOR -->
+      
+      <!-- TO BODY FAB -->
+      <a href="#body" class="body-fab btn-floating btn-large waves-effect waves-light">
+        <i class="material-icons">keyboard_arrow_down</i>
+      </a>
+
+    </div>
+    
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">{{title}}</h5>
+            <p class="grey-text text-lighten-4">{{footer.text}}</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <ul>
+              <li class="link">
+                  <a
+                    href="" 
+                    class="grey-text text-lighten-3">
+                  </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © copyright.year copyright.text
+          <a class="grey-text text-lighten-4 right" href="">Privacy</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TO TOP FAB -->
+    <a href="#top-reference" class="top-fab btn-floating btn-large waves-effect waves-light">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </a>
+
+  </div>
+
+
+  <!-- TOOLBAR -->
+
+  <div class="landing-toolbar dark">
+    
+    <a class="hamburger waves-effect waves-light btn-flat hide-on-large-only">
+      <i class="material-icons">menu</i>
+    </a>
+    
+    <div class="logo">
+      <img class="logo-icon" src="logo" alt=""/>
+      <span class="logo-text">title</span>
+    </div>
+    
+    <div class="spacer"> </div>
+
+    <div class="menu hide-on-med-and-down">
+      <a 
+        class="link waves-effect waves-light" 
+        href=""></a>
+    </div>
+    
+    <div class="actions hide-on-med-and-down">
+      <a class="action btn-flat waves-effect waves-light" href=""></a>
+    </div>
+
+    <a class='actions-drop-down dropdown-button waves-effect waves-light hide-on-large-only' href='#' data-activates='actions-drop-down'>
+      <i class="material-icons">more_vert</i>
+    </a>
+    <ul id='actions-drop-down' class='dropdown-content'>
+      <li class="action waves-effect"><a href=""></a></li>
+    </ul>
+
+  </div>
+
+
+  <!-- FOREGROUND -->
+
+  <div class="landing-foreground" [@foregroundState]="foregroundState" (click)="toggleSidenav()"> </div>
+
+
+  <!-- SIDENAV -->
+
+  <div class="landing-sidenav" [@sidenavState]="sidenavState">
+    <div class="header">
+      <a class="hamburger waves-effect waves-light btn-flat hide-on-large-only" (click)="toggleSidenav()">
+        <i class="material-icons">arrow_back</i>
+      </a>
+    </div>
+
+    <div class="menu">
+      <a 
+        class="link waves-effect waves-light" 
+        *ngFor="let link of menuLinks" 
+        [href]="link[1]" 
+        [class.active]="activeLink==link[0]"
+        (click)="toggleSidenav()">
+          <i *ngIf="link[2]" class="material-icons">{{link[2]}}</i>
+          {{link[0]}}
+        </a>
+    </div>
+  </div>
+
+</div>

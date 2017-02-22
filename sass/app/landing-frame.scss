@@ -1,0 +1,342 @@
+@import '../styles';
+
+$toolbar-height-desktop: 80px;
+$toolbar-height-tablet: 64px;
+$toolbar-height-phone: 56px;
+$toolbar-line-width: 4px;
+$toolbar-font-size-phone: 1.2rem;
+$toolbar-font-size-tablet: 1.6rem;
+$toolbar-font-size-desktop: 2rem;
+$margin: 10px;
+
+$sidenav-width-phone: 240px;
+$sidenav-width-tablet: 240px;
+$sidenav-width-desktop: 300px;
+$sidenav-font-size-phone: 0.6rem;
+$sidenav-font-size-tablet: 0.8rem;
+$sidenav-font-size-desktop: 1rem;
+
+.landing-foreground {
+    position: fixed;
+    z-index: 1500;
+    top: 0; 
+    bottom: 0;
+    background-color: color('blue-grey', 'darken-4');
+    left: 0; 
+    right: 0;
+}
+
+.top-reference {
+    position: absolute;
+    top: 0;
+}
+
+.hamburger {
+    @include responsive(
+        width, 
+        $toolbar-height-phone - 2*$margin, 
+        $toolbar-height-tablet - 2*$margin, 
+        $toolbar-height-desktop - 2*$margin
+    );
+    @include responsive(
+        height, 
+        $toolbar-height-phone - 2*$margin, 
+        $toolbar-height-tablet - 2*$margin, 
+        $toolbar-height-desktop - 2*$margin
+    );
+    @include responsive(
+        line-height, 
+        $toolbar-height-phone - 2*$margin, 
+        $toolbar-height-tablet - 2*$margin, 
+        $toolbar-height-desktop - 2*$margin
+    );
+    padding: 0px;
+    margin-left: $margin;
+    text-align: center;
+    border-radius: 50%;
+    color: inherit;
+}
+
+.landing-toolbar {
+
+    position: fixed;
+    z-index: 1000;
+    top: 0; 
+    left: 0; 
+    right: 0;
+    @include responsive(height, $toolbar-height-phone, $toolbar-height-tablet, $toolbar-height-desktop);
+    display: flex;
+    align-items: center;
+    
+    transition: all .2s linear;
+    
+    &.dark {
+        background-color: $primary-color;
+        color: $color-text-light;
+        @extend .z-depth-2;
+
+        .menu .link.active {
+            border-bottom: $toolbar-line-width solid $secondary-color;
+            color: lighten($secondary-color, 15%);
+        }        
+    }
+    &.light {
+        background-color: #FFFFFF;
+        color: $color-text-dark;
+        @extend .z-depth-2;
+
+        .menu .link.active {
+            border-bottom: $toolbar-line-width solid $secondary-color;
+            color: $secondary-color;
+        }
+    }
+    &.transparent {
+        background-color: $primary-color;
+        color: $color-text-light;
+
+        .menu .link.active {
+            border-bottom: $toolbar-line-width solid $secondary-color;
+            color: lighten($secondary-color, 85%);
+        }
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        margin-left: $margin;
+
+        @include responsive(
+            line-height, 
+            $toolbar-height-phone - 2*$margin, 
+            $toolbar-height-tablet - 2*$margin, 
+            $toolbar-height-desktop - 2*$margin
+        );
+
+        .logo-icon {
+             @include responsive(
+                height, 
+                $toolbar-height-phone - 2*$margin, 
+                $toolbar-height-tablet - 2*$margin, 
+                $toolbar-height-desktop - 2*$margin
+            );
+        }
+
+        .logo-text {
+            @include black-font;          
+            @include responsive(
+                font-size, 
+                $toolbar-font-size-phone, 
+                $toolbar-font-size-tablet, 
+                $toolbar-font-size-desktop
+            );
+            margin-left: $margin;
+        }
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    .menu {
+        .link {
+            @include bold-font;
+            @include small-font;
+            text-decoration: none;
+            margin-right: $margin;
+            padding: 0 $margin * 2;
+            color: inherit;
+            text-transform: uppercase;
+
+            @include responsive(
+                line-height, 
+                $toolbar-height-phone, 
+                $toolbar-height-tablet, 
+                $toolbar-height-desktop
+            );
+
+            &.active {
+                margin-top: $toolbar-line-width;
+            }
+            
+        }
+    }
+
+    .actions {
+        .action {
+            @include bold-font;
+            @include small-font;
+            text-decoration: none;
+            margin-right: $margin;
+            padding: 0 $margin * 2;
+            color: inherit;
+            text-transform: uppercase;
+
+            border: 1px solid $color-text-light;
+        }
+    }
+    .actions-drop-down {
+        @include responsive(
+            width, 
+            $toolbar-height-phone - 2*$margin, 
+            $toolbar-height-tablet - 2*$margin, 
+            $toolbar-height-desktop - 2*$margin
+        );
+        @include responsive(
+            height, 
+            $toolbar-height-phone - 2*$margin, 
+            $toolbar-height-tablet - 2*$margin, 
+            $toolbar-height-desktop - 2*$margin
+        );
+        @include responsive(
+            line-height, 
+            $toolbar-height-phone - 2*$margin, 
+            $toolbar-height-tablet - 2*$margin, 
+            $toolbar-height-desktop - 2*$margin
+        );
+        padding: 0px;
+        margin-right: $margin;
+        text-align: center;
+        border-radius: 50%;
+        color: inherit;
+    }
+
+}
+
+.landing-sidenav {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    @extend .z-depth-2;
+
+    @include responsive(
+        width, 
+        $sidenav-width-phone, 
+        $sidenav-width-tablet, 
+        $sidenav-width-desktop 
+    );
+    background-color: #FFFFFF;
+
+    @include responsive(
+        font-size, 
+        $sidenav-font-size-phone, 
+        $sidenav-font-size-tablet, 
+        $sidenav-font-size-desktop
+    );
+    color: $color-text-dark;
+
+    overflow: auto;
+
+    .header {
+        @include responsive(height, $toolbar-height-phone, $toolbar-height-tablet, $toolbar-height-desktop);
+        display: flex;
+        align-items: center;
+        background: $primary-color;
+        color: $color-text-light;
+    }
+
+    .menu {
+        .link {
+            @include bold-font;
+            @include small-font;
+            text-decoration: none;
+            padding: 0 $margin * 2;
+            width: 100%;
+            display: flex;
+            align-self: center;
+            color: inherit;
+            text-transform: uppercase;
+
+            @include responsive(
+                line-height, 
+                $toolbar-height-phone - 2*$margin, 
+                $toolbar-height-tablet - 2*$margin, 
+                $toolbar-height-desktop - 2*$margin
+            );
+
+            &:hover {
+                background-color: rgba(color("blue-grey", "darken-4"), .2);
+            }
+
+            &.active {
+                padding-left: $margin * 2 - $toolbar-line-width;
+                border-left: $toolbar-line-width solid $secondary-color;
+                color: $secondary-color;
+            }
+
+            i {
+                @include responsive(
+                    line-height, 
+                    $toolbar-height-phone - 2*$margin, 
+                    $toolbar-height-tablet - 2*$margin, 
+                    $toolbar-height-desktop - 2*$margin
+                );
+                margin-right: $margin;
+            }
+        }
+    }
+}
+
+.landing-page-content {
+
+    .header-wrapper {
+        position: fixed;
+        z-index: 100;
+        top: 0; 
+        left: 0; right: 0;
+        height: $header-height;
+        background: center / cover;
+        background-color: $primary-color;
+        overflow: hidden;
+        transition: all .2s linear;
+    }
+
+    .body-wrapper {
+        position: relative;
+        z-index: 200;
+        margin-top: $header-height;
+        transition: all .2s linear;
+
+        .body-fab {
+            position: absolute;
+            z-index: 300;
+            top: -26px;
+            right: 26px;
+        }
+
+        .body-animated-color {
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .ripple {
+                background-color: $secondary-color;
+                border-radius: 50%;
+            }
+        }
+
+        .body {
+            display: relative;
+            z-index: 200;
+        }
+
+    }
+
+    .page-footer {
+        position: relative;
+        z-index: 300;
+    }
+
+    .top-fab {
+        position: fixed;
+        z-index: 400;
+        right: 26px;
+    }
+}

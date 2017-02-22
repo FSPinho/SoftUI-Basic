@@ -68,21 +68,36 @@ module.exports = function(grunt) {
                 src: 'src/<%= pkg.name %>.js',
                 dest: '<%= dist.outputJsMinFile %>'
             }
-        }, 
-        includeSource: {
-            options: {
-                basePath: '',
-                baseUrl: '<%= dist.outputFolder %>',
-                templates: {
-                    html: {
-                        js: '<script src="{filePath}"></script>',
-                        css: '<link rel="stylesheet" type="text/css" href="{filePath}" />',
-                    }
-                }
-            },
+        },  
+        htmlbuild: {
             dist: {
-                files: {
-                    '<%= dist.outputFolder %>/index.html': 'index.html'
+                src: 'index.html',
+                dest: 'dist/',
+                options: {
+                    beautify: true,
+                    prefix: '',
+                    relative: true,
+                    basePath: false,
+                    scripts: {
+                        bundle: [
+                            '<%= dist.outputFolder %>/*.js',
+                        ]
+                    },
+                    styles: {
+                        bundle: [
+                            '<%= dist.outputFolder %>/*.css',
+                        ]
+                    },
+                    sections: {
+                        templates: {
+                            frame: 'templates/landing-frame.html',
+                        }
+                    },
+                    data: {
+                        // Data to pass to templates
+                        version: "0.1.0",
+                        title: "SoftUI-Basic",
+                    },
                 }
             }
         }, 
@@ -94,16 +109,16 @@ module.exports = function(grunt) {
                 }
             }, 
             css: {
-                files: 'sass/*.scss', 
-                tasks: ['sass', 'autoprefixer', 'includeSource']
+                files: 'sass/**/.scss', 
+                tasks: ['sass', 'autoprefixer', 'htmlbuild']
             }, 
             js: {
-                files: 'js/*.js', 
-                tasks: ['concat:dist', 'babel', 'uglify', 'includeSource']
+                files: 'js/**/.js', 
+                tasks: ['concat:dist', 'babel', 'uglify', 'htmlbuild']
             }, 
             html: {
-                files: '*.html', 
-                tasks: ['concat:dist', 'babel', 'includeSource']
+                files: '**/*.html', 
+                tasks: ['concat:dist', 'babel', 'htmlbuild']
             }
         }
     });
@@ -114,9 +129,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-include-source');
+    grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-babel');
 
-    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'includeSource', 'watch']);
+    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlbuild', 'watch']);
 
 };
