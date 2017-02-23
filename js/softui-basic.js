@@ -1,4 +1,4 @@
-/*! softui-basic - v1.0.0 - 2017-02-22 */ 
+/*! softui-basic - v1.0.0 - 2017-02-23 */ 
  const landingFrame = function() {
 
     const _options = {
