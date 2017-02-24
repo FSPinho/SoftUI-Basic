@@ -27,7 +27,10 @@ module.exports = function(grunt) {
             },
             plugins: {
                 files: {
-                    '<%= dist.outputJsPluginsFile %>': 'node_modules/jquery/dist/jquery.min.js', 
+                    '<%= dist.outputJsPluginsFile %>': [
+                        'node_modules/jquery/dist/jquery.min.js',
+                        'node_modules/materialize-css/dist/js/materialize.min.js'
+                    ] , 
                 },
             }
         },
@@ -71,11 +74,10 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n', 
-                sourceMap: true,
-                sourceMapName: 'path/to/sourcemap.map'
+                sourceMap: true
             },
             build: {
-                src: 'src/<%= pkg.name %>.js',
+                src: '<%= dist.outputJsFile %>',
                 dest: '<%= dist.outputJsMinFile %>'
             }
         },  
@@ -90,7 +92,9 @@ module.exports = function(grunt) {
                     basePath: false,
                     scripts: {
                         bundle: [
-                            '<%= dist.outputFolder %>/*.js',
+                            '<%= dist.outputFolder %>/plugins.js',
+                            '<%= dist.outputFolder %>/templates.js',
+                            '<%= dist.outputJsMinFile %>'
                         ]
                     },
                     styles: {
@@ -117,6 +121,7 @@ module.exports = function(grunt) {
                     // includes files within path
                     {expand: true, cwd: 'node_modules/materialize-css/', src: ['fonts/**'], dest: '<%= dist.outputFolder %>'},
                     {expand: true, src: ['img/**'], dest: '<%= dist.outputFolder %>'},
+                    {expand: true, src: ['*.html'], dest: '<%= dist.outputFolder %>'},
                 ],
             },
         },
@@ -140,15 +145,19 @@ module.exports = function(grunt) {
             }, 
             css: {
                 files: 'sass/**/*.scss', 
-                tasks: ['sass:dist', 'autoprefixer', 'htmlConvert']
+                tasks: ['sass:dist', 'autoprefixer', 'htmlbuild']
             }, 
             js: {
                 files: 'js/**/*.js', 
-                tasks: ['concat:dist', 'babel', 'uglify', 'htmlConvert']
+                tasks: ['concat:dist', 'babel', 'uglify', 'htmlbuild']
             }, 
             html: {
                 files: ['index.html', 'templates/*.html'], 
-                tasks: ['concat:dist', 'babel', 'htmlConvert']
+                tasks: ['htmlConvert']
+            }, 
+            copyFiles: {
+                files: ['*.html', 'templates/**/*.html', 'img/*'],
+                tasks: ['htmlConvert', 'copy', 'htmlbuild']
             }
         }
     });
@@ -164,6 +173,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-html-convert');
 
-    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlConvert', 'copy','watch']);
+    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlConvert', 'copy', 'htmlbuild', 'watch']);
 
 };

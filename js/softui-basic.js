@@ -1,33 +1,32 @@
-/*! softui-basic - v1.0.0 - 2017-02-23 */ 
+/*! softui-basic - v1.0.0 - 2017-02-24 */ 
  const landingFrame = function() {
 
     const _options = {
-        linkSelector: '.link', 
-        linkHrefSelector: '.link-href',
-        linkTextSelector: '.link-text',
-        linkIconSelector: '.link-icon',   
-        links: [], 
+        landingFrameSelector: '.landing-frame', 
+        landingFrameTemplate: templates.landingFrame, 
+
+        menuSelector: '.menu'
     };
 
     const _initialize = function(options) {
         Object.assign(_options, options);
 
-        _initializeLinks();
+        _initializeFrame();  
     }
 
-    const _initializeLinks = function() {
-        const links = $(_options.linkSelector);
-        links.each((i, el) => {
-            _options.links.map((link) => {
-                const $link = $(el).clone();
-                $link.find(_options.linkHrefSelector).text(link.text);
-                $link.find(_options.linkTextSelector).attr('href', link.text);
-                $link.find(_options.linkIconSelector).text(link.icon);
-                $(el).parent().append($link);
-                console.log($link);
-            });
-            $(el).remove();
-        });
+    const _initializeFrame= function() {
+        let $landingFrame = $(_options.landingFrameSelector);
+        let $landingFrameTemplate = $(_options.landingFrameTemplate);
+
+        _initializeLinks($landingFrameTemplate);
+
+        $landingFrame.replaceWith($landingFrameTemplate);
+    }
+
+    const _initializeLinks = function($landingFrameTemplate) {
+        let $menu = $(_options.menuSelector);
+        let $links = $menu.find('a');
+        $landingFrameTemplate.find(_options.menuSelector).replaceWith($menu);
     }
 
     return {
