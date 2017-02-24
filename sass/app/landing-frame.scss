@@ -19,7 +19,7 @@ $sidenav-font-size-desktop: 1rem;
     z-index: 1500;
     top: 0; 
     bottom: 0;
-    background-color: color('blue-grey', 'darken-4');
+    background-color: md-color(blue-grey, 900);
     left: 0; 
     right: 0;
 }
@@ -71,7 +71,7 @@ $sidenav-font-size-desktop: 1rem;
     &.dark {
         background-color: $primary-color;
         color: $color-text-light;
-        @extend .z-depth-2;
+        @include elevation(1);
 
         .menu .link.active {
             border-bottom: $toolbar-line-width solid $secondary-color;
@@ -81,7 +81,7 @@ $sidenav-font-size-desktop: 1rem;
     &.light {
         background-color: #FFFFFF;
         color: $color-text-dark;
-        @extend .z-depth-2;
+        @include elevation(1);
 
         .menu .link.active {
             border-bottom: $toolbar-line-width solid $secondary-color;
@@ -206,7 +206,7 @@ $sidenav-font-size-desktop: 1rem;
     top: 0;
     left: 0;
     bottom: 0;
-    @extend .z-depth-2;
+    @include elevation(1);
 
     @include responsive(
         width, 
@@ -254,7 +254,7 @@ $sidenav-font-size-desktop: 1rem;
             );
 
             &:hover {
-                background-color: rgba(color("blue-grey", "darken-4"), .2);
+                background-color: rgba(md-color(blue-grey, 900), .2);
             }
 
             &.active {

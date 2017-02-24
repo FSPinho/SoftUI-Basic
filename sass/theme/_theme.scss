@@ -1,6 +1,5 @@
-@import "../node_modules/materialize-css/sass/components/color";
-@import "../node_modules/materialize-css/sass/components/variables";
-@import "../node_modules/materialize-css/sass/components/global";
+@import "./color-palette";
+@import "./shadow";
 
 $toolbar-height-desktop: 80px;
 $toolbar-height-tablet: 64px;
@@ -11,19 +10,19 @@ $header-height: 80vh;
 // 1. Colors
 // ==========================================================================
 
-$primary-color: color("deep-purple", "lighten-2") !default;
-$primary-color-light: lighten($primary-color, 15%) !default;
-$primary-color-dark: darken($primary-color, 15%) !default;
+$primary-color: md-color(deep-purple, 500) !default;
+$primary-color-light: md-color(deep-purple, 400) !default;
+$primary-color-dark: md-color(deep-purple, 700) !default;
 
-$secondary-color: color("pink", "accent-2") !default;
-$success-color: color("green", "base") !default;
-$error-color: color("red", "base") !default;
-$link-color: color("light-blue", "darken-1") !default;
+$secondary-color: md-color(pink, A200) !default;
+$success-color: md-color(green, 500) !default;
+$error-color: md-color(red, 500) !default;
+$link-color: md-color(pink, A400) !default;
 
-$color-text-light: color("blue-grey", "lighten-5") !default;
-$color-text-dark: color("blue-grey", "darken-4") !default;
-$color-text-primary: color($primary-color, "base") !default;
-$color-text-accent: color($secondary-color, "base") !default;
+$color-text-light: md-color(blue-grey, 50) !default;
+$color-text-dark: md-color(blue-grey, 900) !default;
+$color-text-primary: $primary-color;
+$color-text-accent: $secondary-color;
 
 // Media Query Ranges
 $small-screen-up: 480px !default;

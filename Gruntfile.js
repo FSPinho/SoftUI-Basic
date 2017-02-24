@@ -120,6 +120,17 @@ module.exports = function(grunt) {
                 ],
             },
         },
+        htmlConvert: {
+            options: {
+                rename: function (name) {
+                    return name.match(/([\w\d\.-]+).html$/)[1].replace(/\.|-(\w)/, (s) => s.toUpperCase() ).replace(/\.|-/, "");
+                }
+            },
+            templates: {
+                src: ['templates/**/*.html'],
+                dest: '<%= dist.outputFolder %>/templates.js'
+            },
+        },
         watch: {
             configFiles: {
                 files: [ 'Gruntfile.js' ],
@@ -129,15 +140,15 @@ module.exports = function(grunt) {
             }, 
             css: {
                 files: 'sass/**/*.scss', 
-                tasks: ['sass:dist', 'autoprefixer', 'htmlbuild']
+                tasks: ['sass:dist', 'autoprefixer', 'htmlConvert']
             }, 
             js: {
                 files: 'js/**/*.js', 
-                tasks: ['concat:dist', 'babel', 'uglify', 'htmlbuild']
+                tasks: ['concat:dist', 'babel', 'uglify', 'htmlConvert']
             }, 
             html: {
                 files: ['index.html', 'templates/*.html'], 
-                tasks: ['concat:dist', 'babel', 'htmlbuild']
+                tasks: ['concat:dist', 'babel', 'htmlConvert']
             }
         }
     });
@@ -151,7 +162,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-html-convert');
 
-    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlbuild', 'copy','watch']);
+    grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'uglify', 'htmlConvert', 'copy','watch']);
 
 };
