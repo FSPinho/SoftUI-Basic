@@ -5,13 +5,25 @@
         landingFrameSelector: '.landing-frame', 
         landingFrameTemplate: templates.landingFrame, 
 
-        menuSelector: '.menu'
+        menuSelector: '.menu', 
+
+        sidenavSelector: '.landing-sidenav', 
+
+        foregroundSelector: '.landing-foreground'
     };
+
+    const _click = {
+        toggleSidenav: () => {
+            $(_options.sidenavSelector).toggleClass('hide-left');
+            $(_options.foregroundSelector).toggle();
+        }
+    }
 
     const _initialize = function(options) {
         Object.assign(_options, options);
 
         _initializeFrame();  
+        _initializeClick();
     }
 
     const _initializeFrame= function() {
@@ -20,6 +32,7 @@
 
         _initializeLinks($landingFrameTemplate);
 
+        $landingFrameTemplate.find(_options.foregroundSelector).hide();
         $landingFrame.replaceWith($landingFrameTemplate);
     }
 
@@ -27,6 +40,14 @@
         let $menu = $(_options.menuSelector);
         let $links = $menu.find('a');
         $landingFrameTemplate.find(_options.menuSelector).replaceWith($menu);
+    }
+
+    const _initializeClick = function() {
+        $('.click').each((i, el) => {
+            if($(el).data('click')) {
+                $(el).click(_click[$(el).data('click')]);
+            }
+        });
     }
 
     return {

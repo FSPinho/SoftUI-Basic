@@ -155,6 +155,10 @@ $sidenav-font-size-desktop: 1rem;
             &.active {
                 margin-top: $toolbar-line-width;
             }
+
+            i {
+                display: none;
+            }
             
         }
     }
@@ -187,7 +191,7 @@ $sidenav-font-size-desktop: 1rem;
         );
         @include responsive(
             line-height, 
-            $toolbar-height-phone - 2*$margin, 
+            $toolbar-height-phone - 2*$margin,  
             $toolbar-height-tablet - 2*$margin, 
             $toolbar-height-desktop - 2*$margin
         );
@@ -196,6 +200,15 @@ $sidenav-font-size-desktop: 1rem;
         text-align: center;
         border-radius: 50%;
         color: inherit;
+
+        i {
+            @include responsive(
+                line-height, 
+                $toolbar-height-phone - 2*$margin,  
+                $toolbar-height-tablet - 2*$margin, 
+                $toolbar-height-desktop - 2*$margin
+            );
+        }
     }
 
 }
@@ -225,6 +238,16 @@ $sidenav-font-size-desktop: 1rem;
     color: $color-text-dark;
 
     overflow: auto;
+    transition: all 100ms linear;
+
+    &.hide-left {
+        @include responsive(
+            left,  
+            -$sidenav-width-phone - 20px, 
+            -$sidenav-width-tablet - 20px, 
+            -$sidenav-width-desktop - 20px 
+        );
+    }
 
     .header {
         @include responsive(height, $toolbar-height-phone, $toolbar-height-tablet, $toolbar-height-desktop);
