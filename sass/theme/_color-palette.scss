@@ -297,11 +297,11 @@ $md-colors: (
 
 @each $name, $variation in $md-colors {
     @each $level, $hex in $variation {
-        .md-#{$name}-#{$level} {
+        .md-#{"" + $name}-#{$level} {
             background-color: $hex;
         }
 
-        .md-text-#{$name}-#{$level} {
+        .md-text-#{"" + $name}-#{$level} {
             color: $hex;
         }
     }

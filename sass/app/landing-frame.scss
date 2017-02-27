@@ -238,7 +238,7 @@ $sidenav-font-size-desktop: 1rem;
     color: $color-text-dark;
 
     overflow: auto;
-    transition: all 100ms linear;
+    transition: all 200ms linear;
 
     &.hide-left {
         @include responsive(
@@ -353,6 +353,16 @@ $sidenav-font-size-desktop: 1rem;
     .page-footer {
         position: relative;
         z-index: 300;
+
+        .link {
+
+            color: #FFFFFF;
+            display: block;
+
+            i {
+                display: none;
+            }
+        }
     }
 
     .top-fab {
