@@ -105,6 +105,7 @@ module.exports = function(grunt) {
                     sections: {
                         templates: {
                             frame: 'templates/landing-frame.html',
+                            header: 'templates/landing-header.html'
                         }
                     },
                     data: {

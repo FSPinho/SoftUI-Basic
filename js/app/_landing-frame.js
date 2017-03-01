@@ -5,6 +5,15 @@
         landingFrameSelector: '.landing-frame', 
         landingFrameTemplate: templates.landingFrame, 
 
+        landingHeaderSelector: '.header-wrapper', 
+        landingHeaderCarouselSelector: '.landing-header-carousel', 
+        landingHeaderCarouselPageSelector: '.header .page', 
+        landingHeaderCarouselPageImageSelector: '.page-image', 
+        landingHeaderCarouselPageTitleSelector: '.page-title', 
+        landingHeaderCarouselPageTextSelector: '.page-text', 
+        landingHeaderCarouselPageActionsSelector: '.page-actions', 
+        landingHeaderTemplate: templates.landingHeader, 
+
         titleSelector: '.title', 
         footerTextSelector: '.footer-text', 
         copyrightSelector: '.copyright', 
@@ -29,7 +38,7 @@
     const _variables = { };
 
     const _events = { 
-        toggleSidenav: () => {
+        toggleSidenav: () => { 
             $(_options.sidenavSelector).toggleClass('hide-left');
             $(_options.foregroundSelector).fadeToggle();
         }
@@ -46,18 +55,49 @@
         $('.dropdown-button').dropdown({
             belowOrigin: true
         });
+
+        $('.carousel.carousel-slider').carousel({
+            fullWidth: true
+        });
     }
 
-    const _initializeFrame= function() {
+    const _initializeFrame = function() {
         let $landingFrame = $(_options.landingFrameSelector);
         let $landingFrameTemplate = $(_options.landingFrameTemplate);
 
+        _initializeHeader($landingFrameTemplate);
         _initializeLinks($landingFrameTemplate);
         _initializeActions($landingFrameTemplate);
         _initializeVariables($landingFrameTemplate);
 
         $landingFrameTemplate.find(_options.foregroundSelector).hide();
         $landingFrame.replaceWith($landingFrameTemplate);
+    }
+
+    const _initializeHeader = function($landingFrameTemplate) {
+        $landingFrameTemplate.find(_options.landingHeaderSelector)
+            .html(_options.landingHeaderTemplate);
+        let $carousel = $landingFrameTemplate.find(_options.landingHeaderCarouselSelector);
+        let $pages = $(_options.landingHeaderCarouselPageSelector);
+
+        $pages.each((i, el) => {
+            let imageSrc = $(el).find(_options.landingHeaderCarouselPageImageSelector).attr('src');
+            let title = $(el).find(_options.landingHeaderCarouselPageTitleSelector).text('src');
+            let text = $(el).find(_options.landingHeaderCarouselPageTextSelector).text('src');
+            let actions = $(el).find(_options.landingHeaderCarouselPageActionsSelector).children('src');
+
+            let template = 
+                '<div class="page carousel-item" ' + 'style="background: url(\'' + imageSrc + '\') center / cover"' + '>' + 
+                    '<div class="header-shadow"></div>' + 
+                    '<div class="page-content">' + 
+                        '<h4 class="page-title center white-text">{{page.title}}</h4>' + 
+                        '<p class="page-text center white-text">{{page.text}}</p>' + 
+                        '<div class="center page-actions">' + 
+                        '</div>' + 
+                    '</div>' + 
+                '</div>';
+            $carousel.append(template);
+        });
     }
 
     const _initializeLinks = function($landingFrameTemplate) {
