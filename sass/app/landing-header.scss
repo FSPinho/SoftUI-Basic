@@ -1,0 +1,50 @@
+.landing-header {
+    width: 100%;
+    height: $header-height;
+
+    .slider {
+        height: 100%;
+        .page {
+            background: center / cover;
+            height: $header-height;
+            @include responsive(
+                padding-top, $toolbar-height-phone, $toolbar-height-tablet, $toolbar-height-desktop);
+            
+            .page-content {
+                position: absolute;
+                top: 0; bottom: 0;
+                left: 0; right: 0;
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                justify-content: center;
+
+                @include responsive(
+                    padding, 
+                    0 20px, 
+                    0 80px, 
+                    0 200px
+                );
+            }
+
+            .header-shadow {
+                position: absolute;
+                z-index: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                @include responsive(
+                    height, 
+                    $header-height, 
+                    $header-height,
+                    $header-height
+                );
+                
+                background: linear-gradient(rgba(md-color(blue-grey, 900), .7), transparent);
+            }
+
+
+
+        }
+    }
+}

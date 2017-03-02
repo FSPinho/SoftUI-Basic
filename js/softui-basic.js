@@ -1,4 +1,4 @@
-/*! softui-basic - v1.0.0 - 2017-03-01 */ 
+/*! softui-basic - v1.0.0 - 2017-03-02 */ 
  const landingFrame = function() {
 
     const _options = {
@@ -82,21 +82,23 @@
 
         $pages.each((i, el) => {
             let imageSrc = $(el).find(_options.landingHeaderCarouselPageImageSelector).attr('src');
-            let title = $(el).find(_options.landingHeaderCarouselPageTitleSelector).text('src');
-            let text = $(el).find(_options.landingHeaderCarouselPageTextSelector).text('src');
-            let actions = $(el).find(_options.landingHeaderCarouselPageActionsSelector).children('src');
-
+            let title = $(el).find(_options.landingHeaderCarouselPageTitleSelector).text();
+            let text = $(el).find(_options.landingHeaderCarouselPageTextSelector).text();
+            let $actions = $(el).find(_options.landingHeaderCarouselPageActionsSelector).children();
             let template = 
-                '<div class="page carousel-item" ' + 'style="background: url(\'' + imageSrc + '\') center / cover"' + '>' + 
-                    '<div class="header-shadow"></div>' + 
-                    '<div class="page-content">' + 
-                        '<h4 class="page-title center white-text">{{page.title}}</h4>' + 
-                        '<p class="page-text center white-text">{{page.text}}</p>' + 
-                        '<div class="center page-actions">' + 
-                        '</div>' + 
-                    '</div>' + 
-                '</div>';
-            $carousel.append(template);
+                `<div class="page carousel-item" style="background: url('${imageSrc}') center / cover"> 
+                    <div class="header-shadow"></div>
+                    <div class="page-content"> 
+                        <h4 class="page-title center white-text">${title}</h4>
+                        <p class="page-text center white-text">${text}</p>
+                        <div class="center page-actions">
+                        </div>
+                    </div>
+                </div>`;
+            let $template = $(template);
+            $template.find(_options.landingHeaderCarouselPageActionsSelector).append($actions);
+            $carousel.append($template);
+            $(el).remove();
         });
     }
 
